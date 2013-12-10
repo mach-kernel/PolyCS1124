@@ -6,6 +6,8 @@
  Polytechnic Institute of New York University
  ds4028@nyu.edu (ladies, feel free to send code)
  
+ Updated 12/10/12
+ 
  */
 
 #include <iostream>
@@ -142,13 +144,11 @@ Node* findLast (Node* head)
     return findLast(head->next);
 }
 
-
 /*
  
  Find the length of a linked list:
  
- Base case: A Node object has no "next" link (Node->next == nullptr)
- If this is true, the list has a length of 1.
+ Base case: The head pointer passed in is nullptr. The length of something that does not exist is zero.
  
  --
  
@@ -165,14 +165,15 @@ Node* findLast (Node* head)
  returns: nodeLen(head->next) + 1
  returns: nodeLen(head->next) + 1
  returns: nodeLen(head->next) + 1
- returns: 1
+ returns: nodeLen(head->next) + 1
  
  I still don't get it, how do you get 4?
  
  Alright, let's number the returns in reverse
  (as this is the way it makes its way up to the 'original' instance):
  
- 4: 1
+ 5: 0
+ 4: [Return of 5] + 1 // 0 + 1 = 1
  3: [Return of 4] + 1; // 1 + 1 = 2
  2: [Return of 3] + 1; // 2 + 1 = 3
  1: [Return of 2] + 1; // 3 + 1 = 4
@@ -183,8 +184,6 @@ int nodeLen (Node* head)
 {
     if (!head)
         return 0;
-    if (!head->next)
-        return 1;
     return nodeLen(head->next) + 1;
 }
 
@@ -193,23 +192,22 @@ int nodeLen (Node* head)
  
  Copying a linked list:
  
- Base case: A Node object has no "next" link (Node->next == nullptr)
- In this case, just make a new node with its next value as nullptr, and return it.
- 
- This would be the same as copying a list with only one member (copying a single instance).
+ Base case: The head pointer passed in is nullptr. You cannot return a copy of nothing, so you return
+ nullptr.
  
  --
  
  If the base case is not met, return a new Node that has its next pointing to a copy of
  the next node of the current head pointer.
  
- The function will continue to loop through itself until it reaches the last Node,
- at which point it will make the final member and return its pointer to be placed
- into the next field of the previous instance which called upon it.
+ The function will continue to loop through itself until it is called upon the last Node's next. At this 
+ point, it will return nullptr to the instance which called it (the last Node) which will have its 
+ next parameter filled with nullptr. This makes sense - the last member of the list has no next value.
  
- I know this is a mindful, but look at it this way:
+ I know this is a mindful, but look at it this way (assume a list of length 3):
  
- 3. returns Node(head->data, nullptr)
+ 4. returns nullptr.
+ 3. returns Node(head->data, [4])
  2. returns Node(head->data, [3]) // where [3] is the return value of 3.
  1. returns new Node(head->data, [2]) // where [2] is the return value of 2.
  
@@ -219,8 +217,6 @@ Node* copyList (Node* head)
 {
     if (!head)
         return nullptr;
-    if (!head->next)
-        return new Node(head->data, nullptr);
     return new Node(head->data, copyList(head->next));
 }
 
