@@ -4,7 +4,7 @@
  
  David Stancu
  Polytechnic Institute of New York University
- ds4028@nyu.edu (ladies, feel free to send code)
+ ds4028@nyu.edu 
  
  Updated 12/10/12!
  
