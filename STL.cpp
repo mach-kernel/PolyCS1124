@@ -130,7 +130,7 @@ int main(int argc, const char * argv[])
      Node<double>
      Node<cats>
      Node<foundingFathers>
-     Node<monicaLewinskiSympathizers>
+     Node<BillClinton>
      
      Go fix the existing Nodes by specifying the types which they are to contain, and then re-run the program.
      I did one of the lines for you:
